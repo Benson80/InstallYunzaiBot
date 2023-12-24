@@ -38,4 +38,4 @@ curl -sS -O https://raw.githubusercontent.com/Benson80/InstallYunzaiBot/main/ins
 
 官网版一键脚本
 
-curl -sS -O https://szrq2022.cf/startYunzai/installYunzai-Bot.sh && chmod +x installYunzai-Bot.sh && ./installYunzai-Bot.sh
+curl -sS -o /root/installYunzai-Bot.sh https://szrq2022.cf/startYunzai/installYunzai-Bot.sh && chmod +x /root/installYunzai-Bot.sh && /root/installYunzai-Bot.sh
