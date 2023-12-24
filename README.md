@@ -13,13 +13,7 @@ pkg install wget
 wget https://szrq2022.cf/startYunzai/init-termux.sh
 
 bash init-termux.sh
-### 开启ssh服务
-pkg install openssh -y
-
-sshd
-
-termux设置自动开启ssh
-
+### termux设置自动开启ssh
 echo "sshd" >> ~/.bashrc
 ### 安装Linux
 bash <(curl -sL https://szrq2022.cf/startYunzai/termux-install-linux.sh)
@@ -34,7 +28,7 @@ cd Termux-Linux/Ubuntu
 
 apt-get update & apt-get install curl
 
-curl -sS -O https://raw.githubusercontent.com/Benson80/InstallYunzaiBot/main/installYunzai-Bot.sh && chmod +x installYunzai-Bot.sh && ./installYunzai-Bot.sh
+curl -sS -o /root/installYunzai-Bot.sh https://raw.githubusercontent.com/Benson80/InstallYunzaiBot/main/installYunzai-Bot.sh && chmod +x /root/installYunzai-Bot.sh && /root/installYunzai-Bot.sh
 
 官网版一键脚本
 
