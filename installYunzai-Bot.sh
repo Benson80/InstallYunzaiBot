@@ -5,17 +5,16 @@ while true; do
     echo "云崽机器人一键安装脚本 （支持Ubuntu系统）"
     echo "-------------------------"
     echo "1. 安装云崽v3.0"
-    echo "2. 安装Node.js"
-	echo "3. 安装依赖"
-	echo "4. 解决puppeteer Chromium启动失败"
-    echo "5. 卸载icqq"
-    echo "6. 安装icqq"
-    echo "7. 更新icqq"
-    echo "8. 安装中文字体"
-    echo "9. 安装ffmpeg"
-    echo "10. 启动云崽机器人"
-    echo "11. 重新启动云崽"
-    echo "12. 安装或卸载云崽插件"
+    echo "2. 卸载云崽"
+    echo "3. 安装Node.js"
+	echo "4. 安装依赖"
+	echo "5. 解决puppeteer Chromium启动失败"
+    echo "6. 安装、卸载或更新icqq"
+    echo "7. 安装中文字体"
+    echo "8. 安装ffmpeg"
+    echo "9. 启动云崽机器人"
+    echo "10. 重新启动云崽"
+    echo "11. 安装或卸载云崽插件"
     echo "-------------------------"
     echo "0. 退出脚本"
     echo "-------------------------"
@@ -43,6 +42,16 @@ while true; do
             git clone --depth=1 https://gitee.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
             ;;
         2)
+            echo "执行卸载云崽的命令"
+			# 删除已存在的 Miao-Yunzai 目录
+            if [ -d "Miao-Yunzai" ]
+               then
+               echo "删除已存在的 Miao-Yunzai 目录"
+               rm -rf Miao-Yunzai
+            fi
+            read -p "按 Enter 键继续..."
+            ;;
+        3)
             echo "执行安装Node.js的命令"
 			# 检查是否已经安装了 Node.js
             if command -v node &> /dev/null
@@ -54,7 +63,7 @@ while true; do
             fi
 			read -p "按 Enter 键继续..."
             ;;
-		3)
+		4)
             echo "执行安装依赖的命令"
             # 检查是否已经安装了 npm
             if command -v npm &> /dev/null
@@ -68,7 +77,7 @@ while true; do
             pnpm install -P
 			read -p "按 Enter 键继续..."
             ;;
-        4)
+        5)
             echo "解决puppeteer Chromium启动失败"
 			if [ "$(basename "$(pwd)")" == "Miao-Yunzai" ]; then
                echo "当前目录已经是 Miao-Yunzai"
@@ -88,52 +97,76 @@ while true; do
             pnpm install puppeteer -w
 			read -p "按 Enter 键继续..."
             ;;
-		5)
-            echo "执行卸载icqq的命令"
-			if [ "$(basename "$(pwd)")" == "Miao-Yunzai" ]; then
-               echo "当前目录已经是 Miao-Yunzai"
-            else
-               echo "进入 Miao-Yunzai 目录"
-               cd "$(pwd)/Miao-Yunzai" || exit 1
-            fi
-            pnpm uninstall icqq
-			read -p "按 Enter 键继续..."
-            ;;
-        6)
-            echo "执行安装icqq的命令"
-			if [ "$(basename "$(pwd)")" == "Miao-Yunzai" ]; then
-               echo "当前目录已经是 Miao-Yunzai"
-            else
-               echo "进入 Miao-Yunzai 目录"
-               cd "$(pwd)/Miao-Yunzai" || exit 1
-            fi
-            pnpm install icqq -w
-			read -p "按 Enter 键继续..."
+		6)
+		    while true; do
+                clear
+                echo "安装、卸载或更新icqq"
+                echo "-------------------------"
+                echo "1. 安装icqq"
+                echo "2. 卸载icqq"
+                echo "3. 更新icqq"
+                echo "-------------------------"
+                echo "0. 返回上级菜单"
+                echo "-------------------------"
+                read -p "请输入你的选择：" plugin_choice
+
+                case $plugin_choice in
+                     1)
+                        echo "执行安装icqq的命令"
+			            if [ "$(basename "$(pwd)")" == "Miao-Yunzai" ]; then
+                           echo "当前目录已经是 Miao-Yunzai"
+                        else
+                           echo "进入 Miao-Yunzai 目录"
+                           cd "$(pwd)/Miao-Yunzai" || exit 1
+                        fi
+                        pnpm install icqq -w
+			            read -p "按 Enter 键继续..."
+                        ;;
+                    2)
+                       echo "执行卸载icqq的命令"
+			            if [ "$(basename "$(pwd)")" == "Miao-Yunzai" ]; then
+                           echo "当前目录已经是 Miao-Yunzai"
+                        else
+                           echo "进入 Miao-Yunzai 目录"
+                           cd "$(pwd)/Miao-Yunzai" || exit 1
+                        fi
+                        pnpm uninstall icqq
+			            read -p "按 Enter 键继续..."
+                       ;;
+                    3)
+                       echo "执行更新icqq的命令"
+			           if [ "$(basename "$(pwd)")" == "Miao-Yunzai" ]; then
+                          echo "当前目录已经是 Miao-Yunzai"
+                       else
+                          echo "进入 Miao-Yunzai 目录"
+                          cd "$(pwd)/Miao-Yunzai" || exit 1
+                       fi
+                       pnpm update icqq
+			           read -p "按 Enter 键继续..."
+                       ;;
+                    0)
+                        break
+                        ;;
+                    *)
+                        echo "无效的选择，请重新输入"
+                        ;;
+                esac
+
+            done
             ;;
         7)
-            echo "执行更新icqq的命令"
-			if [ "$(basename "$(pwd)")" == "Miao-Yunzai" ]; then
-               echo "当前目录已经是 Miao-Yunzai"
-            else
-               echo "进入 Miao-Yunzai 目录"
-               cd "$(pwd)/Miao-Yunzai" || exit 1
-            fi
-            pnpm update icqq
-			read -p "按 Enter 键继续..."
-            ;;
-        8)
             echo "执行安装中文字体的命令"
             sudo apt-get install ttf-wqy-zenhei
 			read -p "按 Enter 键继续..."
             ;;
-        9)
+        8)
             echo "执行安装ffmpeg的命令"
             cd &&git clone https://gitee.com/GanYu256/ffmpeg-install ~/ffmpeg-install
             cd ~/ffmpeg-install
             bash install.sh
 			read -p "按 Enter 键继续..."
             ;;
-        10)
+        9)
             echo "执行启动云崽机器人的命令"
 			apt-get install redis-server
 			# 获取当前目录
@@ -146,22 +179,22 @@ while true; do
             else
                echo "当前目录不是 $target_directory"
             fi
+            cd /root/Miao-Yunzai
             curl -sS -o /root/startYunzai.sh https://szrq2022.cf/startYunzai/startYunzai.sh && chmod +x /root/startYunzai.sh && /root/startYunzai.sh
             read -p "按 Enter 键继续..."
-			;;
-        11)
+            ;;
+        10)
             echo "执行重新启动云崽的命令"
             if [ "$(basename "$(pwd)")" == "Miao-Yunzai" ]; then
                echo "当前目录已经是 Miao-Yunzai"
             else
                echo "进入 Miao-Yunzai 目录"
-               cd "$(pwd)/Miao-Yunzai" || exit 1
+               cd /root/Miao-Yunzai
             fi
             node app login
-			cd
-            read -p "按 Enter 键继续..."
-			;;
-        12)
+            cd
+            ;;
+        11)
             while true; do
                 clear
                 echo "云崽QQ机器人插件"
