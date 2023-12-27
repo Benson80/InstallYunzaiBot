@@ -1,7 +1,7 @@
 # InstallYunzaiBot
 云崽QQ机器人一键安装脚本
 
-## Script: 云崽机器人一键安装脚本 （支持Ubuntu系统）
+Script: 云崽机器人一键安装脚本 （支持Ubuntu系统）
 
 Author: Benson Sun
 
