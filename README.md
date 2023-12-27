@@ -1,11 +1,12 @@
 # InstallYunzaiBot
 云崽QQ机器人一键安装脚本
-# Script: 云崽机器人一键安装脚本 （支持Ubuntu系统）
-# Author: Benson Sun
-# Version: 1.0.0
-# Date: 2023-12-26
+Script: 云崽机器人一键安装脚本 （支持Ubuntu系统）
+Author: Benson Sun
+Version: 1.0.0
+Date: 2023-12-26
 Version: 1.0.1  2023-12-27
 增加2个菜单项：1. 修改配置文件
+
               2.备份或还原云崽
 ## Termux安装并启动云崽机器人
 ### 保持设备唤醒状态
