@@ -47,6 +47,7 @@ cd Termux-Linux/Ubuntu
 ./start-ubuntu.sh
 ### 备份Miao-Yunzai到手机存储
 bash <(curl -sL https://szrq2022.cf/startYunzai/backup_termux.sh)
+
 云崽QQ机器人一键安装脚本旨在优化安装流程，涵盖了安装依赖、启动和插件卸载等关键步骤。不论您是初学者还是经验丰富的用户，该脚本均旨在提供高效便捷的安装体验。它巧妙地集成了安装中文字体、安装ffmpeg等关键功能，为用户提供了更全面、专业的安装解决方案。通过简化繁琐的安装过程，这一脚本旨在确保用户能够轻松快速地部署和运行云崽QQ机器人，从而更专注于实际应用和使用体验。
 
 apt-get update && apt-get install curl
