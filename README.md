@@ -45,6 +45,8 @@ bash <(curl -sL https://szrq2022.cf/startYunzai/start-ubuntu.sh)
 cd Termux-Linux/Ubuntu
 
 ./start-ubuntu.sh
+### 一键安装并启动Ubuntu
+bash <(curl -sL https://szrq2022.cf/startYunzai/init_script.sh)
 ### 备份Miao-Yunzai到手机存储
 bash <(curl -sL https://szrq2022.cf/startYunzai/backup_termux.sh)
 
