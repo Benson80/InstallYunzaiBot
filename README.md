@@ -56,7 +56,7 @@ bash <(curl -sL https://szrq2022.cf/startYunzai/backup_termux.sh)
 ### 一键安装v2ray
 bash <(curl -sL https://szrq2022.cf/startYunzai/install_v2ray.sh)
 
-修改config.json配置文件，可以参考官方文档，或者参考配置模板https://github.com/v2fly/v2ray-examples，或者从其他客户端导出一份配置文档。
+修改config.json配置文件，可以参考官方文档，或者参考配置模板https://github.com/v2fly/v2ray-examples， 或者从其他客户端导出一份配置文档。
 
 后台运行用screen
 
