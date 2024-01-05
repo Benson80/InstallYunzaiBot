@@ -55,7 +55,34 @@ bash <(curl -sL https://szrq2022.cf/startYunzai/init_script.sh)
 bash <(curl -sL https://szrq2022.cf/startYunzai/backup_termux.sh)
 ### 一键安装v2ray
 bash <(curl -sL https://szrq2022.cf/startYunzai/install_v2ray.sh)
-./shadowsocksR.sh 2>&1 | tee shadowsocksR.log
+
+修改config.json配置文件，可以参考官方文档，或者参考配置模板https://github.com/v2fly/v2ray-examples，或者从其他客户端导出一份配置文档。
+
+后台运行用screen
+
+#screen新建v2窗口，注意一下config,json路径。
+
+screen -S v2
+
+v2ray run -c ~/config.json
+
+#恢复窗口，即可查看运行状态，按Ctrl+A+D即可后台运行。
+
+screen -r v2
+
+使用termux运行，当然也要保证termux正常后台运行，以免影响黑屏联网，除了要加入电池优化白名单，最好允许后台运行。
+
+#后台运行
+
+termux-wake-lock
+
+#恢复
+
+termux-wake-unlock
+
+设置系统代理，如果是wifi，直接在已连接的wifi，修改，高级设置，手动代理，代理设置成127.0.0.1，端口就是config.json设置的端口。
+
+如果是移动数据，就需要添加apn，代理设置成127.0.0.1，端口就是config.json设置的端口。
 
 云崽QQ机器人一键安装脚本旨在优化安装流程，涵盖了安装依赖、启动和插件卸载等关键步骤。不论您是初学者还是经验丰富的用户，该脚本均旨在提供高效便捷的安装体验。它巧妙地集成了安装中文字体、安装ffmpeg等关键功能，为用户提供了更全面、专业的安装解决方案。通过简化繁琐的安装过程，这一脚本旨在确保用户能够轻松快速地部署和运行云崽QQ机器人，从而更专注于实际应用和使用体验。
 
