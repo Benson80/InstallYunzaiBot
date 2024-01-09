@@ -26,6 +26,10 @@ Version: 1.0.3 2024-1-3
 Version: 1.0.4 2024-1-5
 
 增加一键安装v2ray
+
+Version: 1.0.5 2024-1-9
+
+增加一键卸载v2ray
 ## Termux安装并启动云崽机器人
 ### 保持设备唤醒状态
 termux-wake-lock
@@ -55,6 +59,8 @@ bash <(curl -sL https://szrq2022.cf/startYunzai/init_script.sh)
 bash <(curl -sL https://szrq2022.cf/startYunzai/backup_termux.sh)
 ### 一键安装v2ray
 bash <(curl -sL https://szrq2022.cf/startYunzai/install_v2ray.sh)
+### 一键卸载v2ray
+bash <(curl -sL https://szrq2022.cf/startYunzai/uninstall_v2ray.sh)
 
 修改config.json配置文件，可以参考官方文档，或者参考配置模板https://github.com/v2fly/v2ray-examples ，或者从其他客户端导出一份配置文档。
 
