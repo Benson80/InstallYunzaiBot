@@ -36,6 +36,10 @@ Version: 1.0.6 2024-1-24
 增加创建或删除交换文件
 
 添加DNS
+
+Version: 1.0.7 2024-1-28
+
+增加安装Ubuntu桌面、安装VNC和安装并启动v2rayA
 ## Termux安装并启动云崽机器人
 ### 保持设备唤醒状态
 termux-wake-lock
