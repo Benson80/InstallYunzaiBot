@@ -40,6 +40,10 @@ Version: 1.0.6 2024-1-24
 Version: 1.0.7 2024-1-28
 
 增加安装Ubuntu桌面、安装VNC和安装并启动v2rayA
+
+Version: 1.0.8 2024-1-29
+
+增加安装cpolar内网穿透
 ## Termux安装并启动云崽机器人
 ### 保持设备唤醒状态
 termux-wake-lock
@@ -102,7 +106,7 @@ termux-wake-unlock
 
 云崽QQ机器人一键安装脚本旨在优化安装流程，涵盖了安装依赖、启动和插件卸载等关键步骤。不论您是初学者还是经验丰富的用户，该脚本均旨在提供高效便捷的安装体验。它巧妙地集成了安装中文字体、安装ffmpeg等关键功能，为用户提供了更全面、专业的安装解决方案。通过简化繁琐的安装过程，这一脚本旨在确保用户能够轻松快速地部署和运行云崽QQ机器人，从而更专注于实际应用和使用体验。
 
-apt-get update && apt-get install curl
+apt-get update && apt-get install curl -y
 
 curl -sS -o /root/installYunzai-Bot.sh https://raw.githubusercontent.com/Benson80/InstallYunzaiBot/main/installYunzai-Bot.sh && chmod +x /root/installYunzai-Bot.sh && /root/installYunzai-Bot.sh
 
