@@ -2,8 +2,53 @@
 
 # Script: 云崽机器人一键安装脚本 （支持Ubuntu系统）
 # Author: Benson Sun
-# Version: 1.0.0
-# Date: 2023-12-26
+# Version: 1.0.7
+# Date: 2024-1-28
+
+SWAPFILE="/swapfile"
+SWAPSIZE="2G"
+
+function create_swap() {
+    # Check if swapfile already exists
+    if [ -e "$SWAPFILE" ]; then
+        echo "交换文件已存在。退出。"
+        exit 1
+    fi
+
+    # 为交换文件分配空间
+    sudo fallocate -l $SWAPSIZE $SWAPFILE
+
+    # 设置权限
+    sudo chmod 600 $SWAPFILE
+
+    # 格式化为交换区
+    sudo mkswap $SWAPFILE
+
+    # 激活交换文件
+    sudo swapon $SWAPFILE
+
+    # 在 /etc/fstab 中添加条目，以在启动时自动激活
+    echo "$SWAPFILE none swap sw 0 0" | sudo tee -a /etc/fstab
+
+    echo "交换文件创建并成功激活。"
+}
+
+function delete_swap() {
+    # 检查交换文件是否存在
+    if [ ! -e "$SWAPFILE" ]; then
+        echo "交换文件不存在。退出。"
+        exit 1
+    fi
+
+    # 停用并移除交换文件
+    sudo swapoff $SWAPFILE
+    sudo rm $SWAPFILE
+
+    # 从 /etc/fstab 中删除相关条目
+    sudo sed -i "\~$SWAPFILE~d" /etc/fstab
+
+    echo "交换文件已成功删除。"
+}
 
 while true; do
     clear
@@ -17,9 +62,22 @@ while true; do
     echo "6. 安装、卸载或更新icqq"
     echo "7. 安装中文字体"
     echo "8. 安装ffmpeg"
-    echo "9. 启动云崽机器人"
-    echo "10. 重新启动云崽"
-    echo "11. 安装或卸载云崽插件"
+    echo "9. 修改配置文件"
+    echo "10. 启动云崽机器人"
+    echo "11. 重新启动云崽"
+    echo "12. 安装或卸载云崽插件"
+    echo "13. 备份或还原云崽"
+    echo "14. 云崽多开"
+    echo "15. 一键快速配置Qsign服务"
+    echo "16. 一键安装或卸载v2ray"
+    echo "17. 创建或删除交换文件"
+    echo "18. 添加DNS"
+    echo "19. 修改时区"
+    echo "20. 安装Ubuntu桌面"
+    echo "21. Ubuntu安装VNC"
+    echo "22. 查看VNC端口号"
+    echo "23. 安装并启动v2rayA"
+    echo "24. 查看系统信息"
     echo "-------------------------------------------"
     echo "0. 退出脚本"
     echo "-------------------------------------------"
@@ -29,6 +87,8 @@ while true; do
     case $choice in
         1)
             echo "执行安装云崽v3.0的命令"
+			# 切换到 root 目录
+            cd /root
 			if command -v git &> /dev/null
                then
                echo "Git 已安装，跳过安装步骤"
@@ -48,6 +108,8 @@ while true; do
             ;;
         2)
             echo "执行卸载云崽的命令"
+            # 切换到 root 目录
+            cd /root
 			# 删除已存在的 Miao-Yunzai 目录
             if [ -d "Miao-Yunzai" ]
                then
@@ -58,15 +120,41 @@ while true; do
             ;;
         3)
             echo "执行安装Node.js的命令"
-			# 检查是否已经安装了 Node.js
-            if command -v node &> /dev/null
-               then
-               echo "Node.js 已安装，跳过安装步骤"
+			# 安装 NVM
+            export NVM_SOURCE=https://gitlab.com/mirrorx/nvm.git
+            curl -o- https://gitlab.com/mirrorx/nvm/-/raw/master/install.sh | bash
+
+            # 加载 NVM
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+            # 指定要安装的 Node.js 版本
+            NODE_VERSION="17"
+
+            # 检查是否已经安装了 Node.js
+            if command -v node &> /dev/null; then
+               INSTALLED_VERSION=$(node -v)
+               if [[ $INSTALLED_VERSION == "v$NODE_VERSION"* ]]; then
+                  echo "Node.js $NODE_VERSION 已安装，跳过安装步骤"
+               else
+                  echo "Node.js 已安装，但版本不是 $NODE_VERSION"
+                  echo "正在卸载现有 Node.js 版本..."
+                  nvm uninstall $INSTALLED_VERSION  # 使用 nvm 卸载已安装的版本
+                  echo "正在安装 Node.js $NODE_VERSION 使用 NVM"
+                  nvm install $NODE_VERSION
+                  nvm use 17.9.1
+               fi
             else
-               echo "正在安装 Node.js"
-               apt-get install -y nodejs
+                  echo "Node.js 未安装，正在安装 Node.js $NODE_VERSION 使用 NVM"
+                  nvm install $NODE_VERSION
+                  nvm use 17.9.1
             fi
-			read -p "按 Enter 键继续..."
+
+            # 验证安装
+            echo "Node.js 版本：$(node -v)"
+            echo "npm 版本：$(npm -v)"
+
+            read -p "按 Enter 键继续..."
             ;;
 		4)
             echo "执行安装依赖的命令"
@@ -78,6 +166,7 @@ while true; do
                echo "正在安装 npm"
                apt install -y npm
             fi
+            npm config set registry https://registry.npmjs.org/
             npm install pnpm -g
             pnpm install -P
 			read -p "按 Enter 键继续..."
@@ -172,8 +261,93 @@ while true; do
 			read -p "按 Enter 键继续..."
             ;;
         9)
+            while true; do
+                clear
+                echo "修改配置文件"
+                echo "-------------------------"
+                echo "1. 修改bot.yaml文件"
+                echo "2. 修改qq.yaml文件"
+                echo "3. 修改redis.yaml文件"
+                echo "-------------------------"
+                echo "0. 返回上级菜单"
+                echo "-------------------------"
+                read -p "请输入你的选择：" plugin_choice
+                
+                case $plugin_choice in
+                     1)
+                        echo "执行修改bot.yaml文件的命令"
+			            # 检查 Vim 是否已安装
+                        if command -v vim &> /dev/null
+                           then
+                           echo "Vim 已安装"
+                        else
+                           apt-get install vim
+                        fi
+                        config_file="/root/Miao-Yunzai/config/config/bot.yaml"
+                        # 检查文件是否存在
+                        if [ -e "$config_file" ]; then
+                           echo "找到配置文件 $config_file"
+                           # 打开 Vim 编辑文件
+                           vim "$config_file"
+                        else
+                           echo "配置文件 $config_file 不存在，请检查路径是否正确。"
+                        fi
+                        read -p "按 Enter 键继续..."
+                        ;;
+                    2)
+                        echo "执行修改qq.yaml文件的命令"
+			            # 检查 Vim 是否已安装
+                        if command -v vim &> /dev/null
+                           then
+                           echo "Vim 已安装"
+                        else
+                           apt-get install vim
+                        fi
+                        config_file="/root/Miao-Yunzai/config/config/qq.yaml"
+                        # 检查文件是否存在
+                        if [ -e "$config_file" ]; then
+                           echo "找到配置文件 $config_file"
+                           # 打开 Vim 编辑文件
+                           vim "$config_file"
+                        else
+                           echo "配置文件 $config_file 不存在，请检查路径是否正确。"
+                        fi
+                        read -p "按 Enter 键继续..."
+                        ;;
+                    3)
+                        echo "执行修改redis.yaml文件的命令"
+			            # 检查 Vim 是否已安装
+                        if command -v vim &> /dev/null
+                           then
+                           echo "Vim 已安装"
+                        else
+                           apt-get install vim
+                        fi
+                        config_file="/root/Miao-Yunzai/config/config/redis.yaml"
+                        # 检查文件是否存在
+                        if [ -e "$config_file" ]; then
+                           echo "找到配置文件 $config_file"
+                           # 打开 Vim 编辑文件
+                           vim "$config_file"
+                        else
+                           echo "配置文件 $config_file 不存在，请检查路径是否正确。"
+                        fi
+                        read -p "按 Enter 键继续..."
+                        ;;
+                    0)
+                        break
+                        ;;
+                    *)
+                        echo "无效的选择，请重新输入"
+                        ;;
+                esac
+
+            done
+            ;;
+            
+        10)
             echo "执行启动云崽机器人的命令"
-			apt-get install redis-server
+			apt-get install redis-server -y
 			# 获取当前目录
             current_directory="$(pwd)"
             target_directory="Miao-Yunzai"
@@ -184,11 +358,11 @@ while true; do
             else
                echo "当前目录不是 $target_directory"
             fi
-            cd /root/Miao-Yunzai
+            bash <(curl -sL https://szrq2022.cf/startYunzai/setup_node_and_icqq.sh)
             curl -sS -o /root/startYunzai.sh https://szrq2022.cf/startYunzai/startYunzai.sh && chmod +x /root/startYunzai.sh && /root/startYunzai.sh
             read -p "按 Enter 键继续..."
             ;;
-        10)
+        11)
             echo "执行重新启动云崽的命令"
             if [ "$(basename "$(pwd)")" == "Miao-Yunzai" ]; then
                echo "当前目录已经是 Miao-Yunzai"
@@ -199,7 +373,7 @@ while true; do
             node app login
             cd
             ;;
-        11)
+        12)
             while true; do
                 clear
                 echo "云崽QQ机器人插件"
@@ -216,6 +390,7 @@ while true; do
 				echo "10. 卸载枫叶插件"
 				echo "11. 卸载阴天插件"
 				echo "12. 卸载土块插件"
+				echo "13. 查看已安装的云崽插件"
                 echo "-------------------------"
                 echo "0. 返回上级菜单"
                 echo "-------------------------"
@@ -438,6 +613,42 @@ while true; do
                         fi
 						read -n 1 -s -r -p "按任意键继续..."
                         ;;
+                    13)
+                        echo "查看已安装的云崽插件"
+                        echo "-------------------------"
+
+                        # 检查是否安装了锅巴插件
+                        if [ -d "/root/Miao-Yunzai/plugins/Guoba-Plugin" ]; then
+                           echo "锅巴插件已安装"
+                        fi
+
+                        # 检查是否安装了ChatGPT插件
+                        if [ -d "/root/Miao-Yunzai/plugins/chatgpt-plugin" ]; then
+                           echo "ChatGPT插件已安装"
+                        fi
+
+                        # 检查是否安装了椰奶插件
+                        if [ -d "/root/Miao-Yunzai/plugins/yenai-plugin" ]; then
+                           echo "椰奶插件已安装"
+                        fi
+
+                        # 检查是否安装了枫叶插件
+                        if [ -d "/root/Miao-Yunzai/plugins/hs-qiqi-plugin" ]; then
+                           echo "枫叶插件已安装"
+                        fi
+
+                        # 检查是否安装了阴天插件
+                        if [ -d "/root/Miao-Yunzai/plugins/y-tian-plugin" ]; then
+                           echo "阴天插件已安装"
+                        fi
+
+                        # 检查是否安装了土块插件
+                        if [ -d "/root/Miao-Yunzai/plugins/earth-k-plugin" ]; then
+                           echo "土块插件已安装"
+                        fi
+
+                        read -n 1 -s -r -p "按任意键继续..."
+                        ;;
                     0)
                         break
                         ;;
@@ -447,6 +658,294 @@ while true; do
                 esac
 
             done
+            ;;
+        13)
+            while true; do
+                clear
+                echo "备份或还原云崽"
+                echo "-------------------"
+                echo "1. 备份云崽"
+                echo "2. 还原云崽"
+                echo "3. 查看云崽安装目录大小"
+                echo "4. 比较云崽目录大小"
+                echo "-------------------"
+                echo "0. 返回上级菜单"
+                echo "-------------------"
+                read -p "请输入你的选择：" plugin_choice
+                
+                case $plugin_choice in
+                     1)
+                       echo "执行备份云崽的命令"
+                       curl -sS -o /root/Backup_Yunzai_new.sh https://szrq2022.cf/startYunzai/Backup_Yunzai_new.sh && chmod +x /root/Backup_Yunzai_new.sh && /root/Backup_Yunzai_new.sh
+                       read -p "按 Enter 键继续..."
+                       ;;
+                     2)
+                       echo "执行还原云崽的命令"
+                       curl -sS -o /root/Restore_Yunzai.sh https://szrq2022.cf/startYunzai/Restore_Yunzai.sh && chmod +x /root/Restore_Yunzai.sh && /root/Restore_Yunzai.sh
+                       read -p "按 Enter 键继续..."
+                       ;;
+                     3)
+                       echo "执行查看云崽安装目录大小的命令"
+                       # 查找包含Yunzai的目录，并计算它们的总大小
+                       # 搜索包含Yunzai的目录，并将结果保存到数组中
+                       directories=($(find /root -type d -name "*Yunzai*"))
+
+                       # 初始化总大小为0
+                       total_size=0
+
+                       # 循环遍历每个目录并计算大小
+                       for dir in "${directories[@]}"; do
+                           # 使用du命令计算目录大小，并将结果添加到总大小中
+                           dir_size_kb=$(du -s "$dir" | awk '{print $1}')
+                           dir_size_mb=$((dir_size_kb / 1024))  # 转换为MB
+                           total_size=$((total_size + dir_size_mb))
+
+                           # 打印目录名称和大小
+                           echo "目录: $dir, 大小: ${dir_size_mb} MB"
+                       done
+
+                       # 打印总大小
+                       echo "总大小: ${total_size} MB"
+                       read -p "按 Enter 键继续..."
+                       ;;
+                    4)
+                       echo "执行比较云崽目录大小的命令"
+                       curl -sS -o /root/compare_Yunzai.sh https://szrq2022.cf/startYunzai/compare_Yunzai.sh && chmod +x /root/compare_Yunzai.sh && /root/compare_Yunzai.sh
+                       read -p "按 Enter 键继续..."
+                       ;;
+                     0)
+                        break
+                        ;;
+                    *)
+                        echo "无效的选择，请重新输入"
+                        ;;
+                esac
+
+            done
+            ;;
+        14)
+            while true; do
+                clear
+                echo "云崽多开"
+                echo "-------------------"
+                echo "1. 开第2个云崽"
+                echo "2. 开第3个云崽"
+                echo "3. 开第4个云崽"
+                echo "4. 开第5个云崽"
+                echo "-------------------"
+                echo "0. 返回上级菜单"
+                echo "-------------------"
+                read -p "请输入你的选择：" plugin_choice
+                
+                case $plugin_choice in
+                     1)
+                       echo "执行开第2个云崽的命令"
+                       mkdir /root/Yunzai-bot2 && cd /root/Yunzai-bot2
+                       git clone --depth=1 https://gitee.com/yoimiya-kokomi/Miao-Yunzai.git
+                       cd /root/Yunzai-bot2/Miao-Yunzai 
+                       git clone --depth=1 https://gitee.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
+                       bash <(curl -sL https://szrq2022.cf/startYunzai/setup_node_and_icqq.sh)
+                       cd config/default_config && cp * ../config
+                       sed -i 's/db: 0/db: 1/' /root/Yunzai-bot2/Miao-Yunzai/config/config/redis.yaml
+                       # 检查是否已安装 screen
+                       #if command -v screen &> /dev/null
+                       #then
+                       #   echo "screen 已安装，正在执行 screen -S yz2"
+                       #   screen -S yz2
+                       #else
+                       #   echo "screen 未安装，正在安装..."
+                       #   apt-get install screen
+                       #   screen -S yz2
+                       #fi
+                       cd /root/Yunzai-bot2/Miao-Yunzai && node app
+                       read -p "按 Enter 键继续..."
+                       ;;
+                     2)
+                       echo "执行开第3个云崽的命令"
+                       mkdir /root/Yunzai-bot3 && cd /root/Yunzai-bot3
+                       git clone --depth=1 https://gitee.com/yoimiya-kokomi/Miao-Yunzai.git
+                       cd /root/Yunzai-bot3/Miao-Yunzai 
+                       git clone --depth=1 https://gitee.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
+                       bash <(curl -sL https://szrq2022.cf/startYunzai/setup_node_and_icqq.sh)
+                       cd config/default_config && cp * ../config
+                       sed -i 's/db: 0/db: 2/' /root/Yunzai-bot3/Miao-Yunzai/config/config/redis.yaml
+                       cd /root/Yunzai-bot3/Miao-Yunzai && node app
+                       read -p "按 Enter 键继续..."
+                       ;;
+                     3)
+                       echo "执行开第4个云崽的命令"
+                       mkdir /root/Yunzai-bot4 && cd /root/Yunzai-bot4
+                       git clone --depth=1 https://gitee.com/yoimiya-kokomi/Miao-Yunzai.git
+                       cd /root/Yunzai-bot4/Miao-Yunzai 
+                       git clone --depth=1 https://gitee.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
+                       bash <(curl -sL https://szrq2022.cf/startYunzai/setup_node_and_icqq.sh)
+                       cd config/default_config && cp * ../config
+                       sed -i 's/db: 0/db: 3/' /root/Yunzai-bot4/Miao-Yunzai/config/config/redis.yaml
+                       cd /root/Yunzai-bot4/Miao-Yunzai && node app
+                       read -p "按 Enter 键继续..."
+                       ;;
+                     4)
+                       echo "执行开第5个云崽的命令"
+                       mkdir /root/Yunzai-bot5 && cd /root/Yunzai-bot5
+                       git clone --depth=1 https://gitee.com/yoimiya-kokomi/Miao-Yunzai.git
+                       cd /root/Yunzai-bot5/Miao-Yunzai 
+                       git clone --depth=1 https://gitee.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
+                       bash <(curl -sL https://szrq2022.cf/startYunzai/setup_node_and_icqq.sh)
+                       cd config/default_config && cp * ../config
+                       sed -i 's/db: 0/db: 4/' /root/Yunzai-bot5/Miao-Yunzai/config/config/redis.yaml
+                       cd /root/Yunzai-bot5/Miao-Yunzai && node app
+                       read -p "按 Enter 键继续..."
+                       ;;
+                     0)
+                        break
+                        ;;
+                    *)
+                        echo "无效的选择，请重新输入"
+                        ;;
+                esac
+
+            done
+            ;;
+        15)
+            echo "执行一键快速配置Qsign服务的命令"
+            bash -c "$(curl -fsSL https://szrq2022.cf/startYunzai/qsign.sh)"
+            read -p "按 Enter 键继续..."
+            ;;
+        16)
+            while true; do
+                clear
+                echo "一键安装或卸载v2ray"
+                echo "-------------------------"
+                echo "1. 一键安装v2ray"
+                echo "2. 一键卸载v2ray"
+                echo "-------------------------"
+                echo "0. 返回上级菜单"
+                echo "-------------------------"
+                read -p "请输入你的选择：" plugin_choice
+
+                case $plugin_choice in
+                     1)
+                        echo "执行一键安装v2ray的命令"
+                        bash -c "$(curl -fsSL https://szrq2022.cf/startYunzai/install_v2ray.sh)"
+                        read -p "按 Enter 键继续..."
+                        ;;
+                     2)
+                        echo "执行一键卸载v2ray的命令"
+                        bash -c "$(curl -fsSL https://szrq2022.cf/startYunzai/uninstall_v2ray.sh)"
+                        read -p "按 Enter 键继续..."
+                        ;;
+                     0)
+                        break
+                        ;;
+                     *)
+                        echo "无效的选择，请重新输入"
+                        ;;
+                esac
+
+            done
+            ;;
+        17)
+            while true; do
+                clear
+                echo "创建或删除交换文件"
+                echo "-------------------------"
+                echo "1. 创建交换文件"
+                echo "2. 删除交换文件"
+                echo "-------------------------"
+                echo "0. 返回上级菜单"
+                echo "-------------------------"
+                read -p "请输入你的选择：" plugin_choice
+
+                case $plugin_choice in
+                     1)
+                        create_swap
+                        read -p "按 Enter 键继续..."
+                        ;;
+                     2)
+                        delete_swap
+                        read -p "按 Enter 键继续..."
+                        ;;
+                     0)
+                        break
+                        ;;
+                     *)
+                        echo "无效的选择，请重新输入"
+                        ;;
+                esac
+
+            done
+            ;;
+        18)
+            echo "执行添加DNS的命令"
+            echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+            read -p "按 Enter 键继续..."
+            ;;
+        19)
+            echo "执行修改时区的命令"
+            curl -sS -o /root/change_timezone.sh https://szrq2022.cf/startYunzai/change_timezone.sh && chmod +x /root/change_timezone.sh && /root/change_timezone.sh
+            read -p "按 Enter 键继续..."
+            ;;
+        20)
+            echo "执行安装Ubuntu桌面的命令"
+            apt update && apt install ubuntu-desktop
+            read -p "按 Enter 键继续..."
+            ;;
+        21)
+            echo "执行安装VNC的命令"
+            #安装 TightVNC 服务器
+            apt install tightvncserver
+
+            #创建初始配置文件
+            vncserver
+
+            #备份VNC的xstartup配置文件
+            cp ~/.vnc/xstartup ~/.vnc/xstartup.bak
+
+            #修改VNC的xstartup配置文件
+            echo -e "#!/bin/sh\nautocutsel -fork\nxrdb \$HOME/.Xresources\nxsetroot -solid grey\nexport XKL_XMODMAP_DISABLE=1\nexport XDG_CURRENT_DESKTOP=\"GNOME-Flashback:Unity\"\nexport XDG_MENU_PREFIX=\"gnome-flashback-\"\nunset DBUS_SESSION_BUS_ADDRESS\ngnome-session --session=gnome-flashback-metacity --disable-acceleration-check --debug &" > ~/.vnc/xstartup
+            read -p "按 Enter 键继续..."
+            ;;
+        22)
+            echo "执行查看VNC端口号的命令"
+            sudo ss -tunlp | grep 590
+            read -p "按 Enter 键继续..."
+            ;;
+        23)
+            echo "执行安装并启动v2rayA的命令"
+            #添加公钥
+            wget -qO - https://apt.v2raya.org/key/public-key.asc | sudo tee /etc/apt/keyrings/v2raya.asc
+            
+            #添加 V2RayA 软件源
+            echo "deb [signed-by=/etc/apt/keyrings/v2raya.asc] https://apt.v2raya.org/ v2raya main" | sudo tee /etc/apt/sources.list.d/v2raya.list
+            sudo apt update
+            
+            #安装 V2RayA
+            sudo apt install v2raya v2ray
+            
+            #启动 v2rayA
+            sudo systemctl start v2raya.service
+            
+            #设置开机自动启动
+            sudo systemctl enable v2raya.service
+            
+            read -p "按 Enter 键继续..."
+            ;;
+        24)
+            echo "执行查看系统信息的命令"
+            #显示操作系统的图标、主机名、内核版本、CPU 信息、内存使用、分辨率、桌面环境等信息。
+            # 检查 neofetch 是否已安装
+            if command -v neofetch &> /dev/null; then
+               echo "neofetch 已安装，跳过安装步骤。"
+            else
+               # 如果未安装，执行安装命令
+               echo "neofetch 未安装，正在安装..."
+               sudo apt update
+               sudo apt install -y neofetch
+            fi
+
+            # 执行 neofetch 命令
+            neofetch
+            read -p "按 Enter 键继续..."
             ;;
         0)
             echo "退出脚本，再见！"
