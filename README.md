@@ -44,6 +44,10 @@ Version: 1.0.7 2024-1-28
 Version: 1.0.8 2024-1-29
 
 增加安装cpolar内网穿透
+
+Version: 1.0.9 2024-1-31
+
+增加一键重装系统
 ## Termux安装并启动云崽机器人
 ### 保持设备唤醒状态
 termux-wake-lock
