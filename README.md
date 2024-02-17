@@ -58,27 +58,27 @@ pkg update
 ### 安装wget
 pkg install wget
 ### 初始化Termux
-wget https://szrq2022.cf/startYunzai/init-termux.sh
+wget https://szrq2022.benson80.eu.org/startYunzai/init-termux.sh
 
 bash init-termux.sh
 ### termux设置自动开启ssh
 echo "sshd" >> ~/.bashrc
 ### 安装Linux
-bash <(curl -sL https://szrq2022.cf/startYunzai/termux-install-linux.sh)
+bash <(curl -sL https://szrq2022.benson80.eu.org/startYunzai/termux-install-linux.sh)
 ### 启动Ubuntu
-bash <(curl -sL https://szrq2022.cf/startYunzai/start-ubuntu.sh)
+bash <(curl -sL https://szrq2022.benson80.eu.org/startYunzai/start-ubuntu.sh)
 
 cd Termux-Linux/Ubuntu
 
 ./start-ubuntu.sh
 ### 一键安装并启动Ubuntu
-bash <(curl -sL https://szrq2022.cf/startYunzai/init_script.sh)
+bash <(curl -sL https://szrq2022.benson80.eu.org/startYunzai/init_script.sh)
 ### 备份Miao-Yunzai到手机存储
-bash <(curl -sL https://szrq2022.cf/startYunzai/backup_termux.sh)
+bash <(curl -sL https://szrq2022.benson80.eu.org/startYunzai/backup_termux.sh)
 ### 一键安装v2ray
-bash <(curl -sL https://szrq2022.cf/startYunzai/install_v2ray.sh)
+bash <(curl -sL https://szrq2022.benson80.eu.org/startYunzai/install_v2ray.sh)
 ### 一键卸载v2ray
-bash <(curl -sL https://szrq2022.cf/startYunzai/uninstall_v2ray.sh)
+bash <(curl -sL https://szrq2022.benson80.eu.org/startYunzai/uninstall_v2ray.sh)
 
 修改config.json配置文件，可以参考官方文档，或者参考配置模板https://github.com/v2fly/v2ray-examples ，或者从其他客户端导出一份配置文档。
 
@@ -116,4 +116,4 @@ curl -sS -o /root/installYunzai-Bot.sh https://raw.githubusercontent.com/Benson8
 
 官网版一键脚本
 
-curl -sS -o /root/installYunzai-Bot.sh https://szrq2022.cf/startYunzai/installYunzai-Bot.sh && chmod +x /root/installYunzai-Bot.sh && /root/installYunzai-Bot.sh
+curl -sS -o /root/installYunzai-Bot.sh https://szrq2022.benson80.eu.org/startYunzai/installYunzai-Bot.sh && chmod +x /root/installYunzai-Bot.sh && /root/installYunzai-Bot.sh
