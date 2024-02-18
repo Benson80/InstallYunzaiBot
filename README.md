@@ -72,13 +72,13 @@ cd Termux-Linux/Ubuntu
 
 ./start-ubuntu.sh
 ### 一键安装并启动Ubuntu
-bash <(curl -sL [https://szrq2022.benson80.eu.org/startYunzai/init_script.sh](https://github.com/Benson80/InstallYunzaiBot/blob/main/init_script.sh))
+bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/blob/main/init_script.sh)
 ### 备份Miao-Yunzai到手机存储
-bash <(curl -sL [https://szrq2022.benson80.eu.org/startYunzai/backup_termux.sh](https://github.com/Benson80/InstallYunzaiBot/blob/main/backup_termux.sh))
+bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/blob/main/backup_termux.sh)
 ### 一键安装v2ray
-bash <(curl -sL [https://szrq2022.benson80.eu.org/startYunzai/install_v2ray.sh](https://github.com/Benson80/InstallYunzaiBot/blob/main/install_v2ray.sh))
+bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/blob/main/install_v2ray.sh)
 ### 一键卸载v2ray
-bash <(curl -sL [https://szrq2022.benson80.eu.org/startYunzai/uninstall_v2ray.sh](https://github.com/Benson80/InstallYunzaiBot/blob/main/uninstall_v2ray.sh))
+bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/blob/main/uninstall_v2ray.sh)
 
 修改config.json配置文件，可以参考官方文档，或者参考配置模板https://github.com/v2fly/v2ray-examples ，或者从其他客户端导出一份配置文档。
 
