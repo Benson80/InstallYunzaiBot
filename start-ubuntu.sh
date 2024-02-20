@@ -1,7 +1,5 @@
-#!/bin/bash
+#! /bin/bash
 
-# 切换到 Ubuntu 目录
-cd ~/Termux-Linux/Ubuntu
-
-# 执行启动 Ubuntu 的脚本
+## 转到Ubuntu目录
+cd "$(pwd)/Termux-Linux/Ubuntu"
 ./start-ubuntu.sh
