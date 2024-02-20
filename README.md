@@ -116,4 +116,4 @@ curl -sS -o /root/installYunzai-Bot.sh https://raw.githubusercontent.com/Benson8
 
 官网版一键脚本
 
-curl -sS -o /root/installYunzai-Bot.sh https://szrq2022.benson80.eu.org/startYunzai/installYunzai-Bot.sh && chmod +x /root/installYunzai-Bot.sh && /root/installYunzai-Bot.sh
+curl -sS -o /root/installYunzai-Bot.sh http://sunxiao.0fees.net/startYunzai/installYunzai-Bot.sh && chmod +x /root/installYunzai-Bot.sh && /root/installYunzai-Bot.sh
