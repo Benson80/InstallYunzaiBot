@@ -58,26 +58,40 @@ pkg update
 ### 安装wget
 pkg install wget
 ### 初始化Termux
+wget http://szrq.hkfree.work/startYunzai/init-termux.sh
+
 wget https://github.com/Benson80/InstallYunzaiBot/raw/main/init-termux.sh
 
 bash init-termux.sh
 ### termux设置自动开启ssh
 echo "sshd" >> ~/.bashrc
 ### 安装Linux
+bash <(curl -sL http://szrq.hkfree.work/startYunzai/termux-install-linux.sh)
+
 bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/termux-install-linux.sh)
 ### 启动Ubuntu
+bash <(curl -sL http://szrq.hkfree.work/startYunzai/start-ubuntu.sh)
+
 bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/start-ubuntu.sh)
 
 cd Termux-Linux/Ubuntu
 
 ./start-ubuntu.sh
 ### 一键安装并启动Ubuntu
+bash <(curl -sL http://szrq.hkfree.work/startYunzai/init_script.sh)
+
 bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/init_script.sh)
 ### 备份Miao-Yunzai到手机存储
+bash <(curl -sL http://szrq.hkfree.work/startYunzai/backup_termux.sh)
+
 bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/backup_termux.sh)
 ### 一键安装v2ray
+bash <(curl -sL http://szrq.hkfree.work/startYunzai/install_v2ray.sh)
+
 bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/install_v2ray.sh)
 ### 一键卸载v2ray
+bash <(curl -sL http://szrq.hkfree.work/startYunzai/uninstall_v2ray.sh)
+
 bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/uninstall_v2ray.sh)
 
 修改config.json配置文件，可以参考官方文档，或者参考配置模板https://github.com/v2fly/v2ray-examples ，或者从其他客户端导出一份配置文档。
