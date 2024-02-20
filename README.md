@@ -58,15 +58,15 @@ pkg update
 ### 安装wget
 pkg install wget
 ### 初始化Termux
-wget https://github.com/Benson80/InstallYunzaiBot/blob/main/init-termux.sh
+wget https://github.com/Benson80/InstallYunzaiBot/raw/main/init-termux.sh
 
 bash init-termux.sh
 ### termux设置自动开启ssh
 echo "sshd" >> ~/.bashrc
 ### 安装Linux
-bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/blob/main/termux-install-linux.sh)
+bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/termux-install-linux.sh)
 ### 启动Ubuntu
-bash <(curl -sL https://szrq2022.benson80.eu.org/startYunzai/start-ubuntu.sh)
+bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/start-ubuntu.sh)
 
 cd Termux-Linux/Ubuntu
 
