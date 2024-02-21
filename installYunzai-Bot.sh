@@ -359,7 +359,7 @@ while true; do
                echo "当前目录不是 $target_directory"
             fi
             bash <(curl -sL https://szrq2022.cf/startYunzai/setup_node_and_icqq.sh)
-            curl -sS -o /root/startYunzai.sh https://szrq2022.cf/startYunzai/startYunzai.sh && chmod +x /root/startYunzai.sh && /root/startYunzai.sh
+            curl -sS -o /root/startYunzai.sh https://github.com/Benson80/InstallYunzaiBot/raw/main/startYunzai.sh && chmod +x /root/startYunzai.sh && /root/startYunzai.sh
             read -p "按 Enter 键继续..."
             ;;
         11)
@@ -676,12 +676,12 @@ while true; do
                 case $plugin_choice in
                      1)
                        echo "执行备份云崽的命令"
-                       curl -sS -o /root/Backup_Yunzai_new.sh https://szrq2022.cf/startYunzai/Backup_Yunzai_new.sh && chmod +x /root/Backup_Yunzai_new.sh && /root/Backup_Yunzai_new.sh
+                       curl -sS -o /root/Backup_Yunzai_new.sh https://github.com/Benson80/InstallYunzaiBot/raw/main/Backup_Yunzai_new.sh && chmod +x /root/Backup_Yunzai_new.sh && /root/Backup_Yunzai_new.sh
                        read -p "按 Enter 键继续..."
                        ;;
                      2)
                        echo "执行还原云崽的命令"
-                       curl -sS -o /root/Restore_Yunzai.sh https://szrq2022.cf/startYunzai/Restore_Yunzai.sh && chmod +x /root/Restore_Yunzai.sh && /root/Restore_Yunzai.sh
+                       curl -sS -o /root/Restore_Yunzai.sh https://github.com/Benson80/InstallYunzaiBot/raw/main/Restore_Yunzai.sh && chmod +x /root/Restore_Yunzai.sh && /root/Restore_Yunzai.sh
                        read -p "按 Enter 键继续..."
                        ;;
                      3)
@@ -710,7 +710,7 @@ while true; do
                        ;;
                     4)
                        echo "执行比较云崽目录大小的命令"
-                       curl -sS -o /root/compare_Yunzai.sh https://szrq2022.cf/startYunzai/compare_Yunzai.sh && chmod +x /root/compare_Yunzai.sh && /root/compare_Yunzai.sh
+                       curl -sS -o /root/compare_Yunzai.sh https://github.com/Benson80/InstallYunzaiBot/raw/main/compare_Yunzai.sh && chmod +x /root/compare_Yunzai.sh && /root/compare_Yunzai.sh
                        read -p "按 Enter 键继续..."
                        ;;
                      0)
@@ -808,7 +808,7 @@ while true; do
             ;;
         15)
             echo "执行一键快速配置Qsign服务的命令"
-            bash -c "$(curl -fsSL https://szrq2022.cf/startYunzai/qsign.sh)"
+            bash -c "$(curl -fsSL https://github.com/Benson80/InstallYunzaiBot/raw/main/qsign.sh)"
             read -p "按 Enter 键继续..."
             ;;
         16)
@@ -826,12 +826,12 @@ while true; do
                 case $plugin_choice in
                      1)
                         echo "执行一键安装v2ray的命令"
-                        bash -c "$(curl -fsSL https://szrq2022.cf/startYunzai/install_v2ray.sh)"
+                        bash -c "$(curl -fsSL https://github.com/Benson80/InstallYunzaiBot/raw/main/install_v2ray.sh)"
                         read -p "按 Enter 键继续..."
                         ;;
                      2)
                         echo "执行一键卸载v2ray的命令"
-                        bash -c "$(curl -fsSL https://szrq2022.cf/startYunzai/uninstall_v2ray.sh)"
+                        bash -c "$(curl -fsSL https://github.com/Benson80/InstallYunzaiBot/raw/main/uninstall_v2ray.sh)"
                         read -p "按 Enter 键继续..."
                         ;;
                      0)
@@ -882,7 +882,7 @@ while true; do
             ;;
         19)
             echo "执行修改时区的命令"
-            curl -sS -o /root/change_timezone.sh https://szrq2022.cf/startYunzai/change_timezone.sh && chmod +x /root/change_timezone.sh && /root/change_timezone.sh
+            curl -sS -o /root/change_timezone.sh https://github.com/Benson80/InstallYunzaiBot/raw/main/change_timezone.sh && chmod +x /root/change_timezone.sh && /root/change_timezone.sh
             read -p "按 Enter 键继续..."
             ;;
         20)
