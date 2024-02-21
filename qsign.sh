@@ -6,8 +6,8 @@ GREEN="\e[32m"         # 绿色
 YELLOW="\e[33m"        # 黄色
 RESET="\e[0m"          # 重置颜色
 
-QSIGN_URL="https://szrq2022.cf/startYunzai/unidbg-fetch-qsign-1.1.9.zip"
-QSIGN_SCRIPT_URL="https://szrq2022.cf/startYunzai/qsign_operations.sh"
+QSIGN_URL="https://github.com/CikeyQi/unidbg-fetch-qsign-shell/releases/download/1.1.9/unidbg-fetch-qsign-1.1.9.zip"
+QSIGN_SCRIPT_URL="https://github.com/Benson80/InstallYunzaiBot/raw/main/qsign_operations.sh"
 
 # 添加函数以显示不同颜色的消息
 print_message() {
