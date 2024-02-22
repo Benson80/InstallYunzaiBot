@@ -2,8 +2,8 @@
 
 # Script: 云崽机器人一键安装脚本 （支持Ubuntu系统）
 # Author: Benson Sun
-# Version: 1.0.7
-# Date: 2024-1-28
+# Version: 1.0.8
+# Date: 2024-1-29
 
 SWAPFILE="/swapfile"
 SWAPSIZE="2G"
@@ -74,8 +74,8 @@ while true; do
     echo "18. 添加DNS"
     echo "19. 修改时区"
     echo "20. 安装Ubuntu桌面"
-    echo "21. Ubuntu安装VNC"
-    echo "22. 查看VNC端口号"
+	echo "21. VNC 功能菜单"
+    echo "22. 安装cpolar内网穿透"
     echo "23. 安装并启动v2rayA"
     echo "24. 查看系统信息"
     echo "-------------------------------------------"
@@ -890,24 +890,52 @@ while true; do
             apt update && apt install ubuntu-desktop
             read -p "按 Enter 键继续..."
             ;;
-        21)
-            echo "执行安装VNC的命令"
-            #安装 TightVNC 服务器
-            apt install tightvncserver
+		21)
+            while true; do
+                clear
+                echo "VNC 功能菜单"
+                echo "-------------------------"
+                echo "1. 安装VNC"
+                echo "2. 查看VNC端口号"
+                echo "-------------------------"
+                echo "0. 返回上级菜单"
+                echo "-------------------------"
+                read -p "请输入你的选择：" plugin_choice
 
-            #创建初始配置文件
-            vncserver
+                case $plugin_choice in
+                     1)
+                        echo "执行安装VNC的命令"
+                        #安装 TightVNC 服务器
+                        apt install tightvncserver
 
-            #备份VNC的xstartup配置文件
-            cp ~/.vnc/xstartup ~/.vnc/xstartup.bak
+                        #创建初始配置文件
+                        vncserver
 
-            #修改VNC的xstartup配置文件
-            echo -e "#!/bin/sh\nautocutsel -fork\nxrdb \$HOME/.Xresources\nxsetroot -solid grey\nexport XKL_XMODMAP_DISABLE=1\nexport XDG_CURRENT_DESKTOP=\"GNOME-Flashback:Unity\"\nexport XDG_MENU_PREFIX=\"gnome-flashback-\"\nunset DBUS_SESSION_BUS_ADDRESS\ngnome-session --session=gnome-flashback-metacity --disable-acceleration-check --debug &" > ~/.vnc/xstartup
-            read -p "按 Enter 键继续..."
+                        #备份VNC的xstartup配置文件
+                        cp ~/.vnc/xstartup ~/.vnc/xstartup.bak
+
+                        #修改VNC的xstartup配置文件
+                        echo -e "#!/bin/sh\nautocutsel -fork\nxrdb \$HOME/.Xresources\nxsetroot -solid grey\nexport XKL_XMODMAP_DISABLE=1\nexport XDG_CURRENT_DESKTOP=\"GNOME-Flashback:Unity\"\nexport XDG_MENU_PREFIX=\"gnome-flashback-\"\nunset DBUS_SESSION_BUS_ADDRESS\ngnome-session --session=gnome-flashback-metacity --disable-acceleration-check --debug &" > ~/.vnc/xstartup
+                        read -p "按 Enter 键继续..."
+                        ;;
+                     2)
+                        echo "执行查看VNC端口号的命令"
+                        sudo ss -tunlp | grep 590
+                        read -p "按 Enter 键继续..."
+                        ;;
+                     0)
+                        break
+                        ;;
+                     *)
+                        echo "无效的选择，请重新输入"
+                        ;;
+                esac
+
+            done
             ;;
         22)
-            echo "执行查看VNC端口号的命令"
-            sudo ss -tunlp | grep 590
+            echo "执行安装cpolar内网穿透的命令"
+            bash -c "$(curl -fsSL https://github.com/Benson80/InstallYunzaiBot/raw/main/install_cpolar.sh)"
             read -p "按 Enter 键继续..."
             ;;
         23)
