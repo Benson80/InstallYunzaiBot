@@ -1,4 +1,5 @@
 #!/bin/bash
+ln -sf ~/installYunzai-Bot.sh /usr/local/bin/s
 
 # Script: 云崽机器人一键安装脚本 （支持Ubuntu系统）
 # Author: Benson Sun
@@ -358,7 +359,7 @@ while true; do
             else
                echo "当前目录不是 $target_directory"
             fi
-            bash <(curl -sL https://szrq2022.cf/startYunzai/setup_node_and_icqq.sh)
+            bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/setup_node_and_icqq.sh)
             curl -sS -o /root/startYunzai.sh https://github.com/Benson80/InstallYunzaiBot/raw/main/startYunzai.sh && chmod +x /root/startYunzai.sh && /root/startYunzai.sh
             read -p "按 Enter 键继续..."
             ;;
