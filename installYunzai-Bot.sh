@@ -3,8 +3,8 @@ ln -sf ~/installYunzai-Bot.sh /usr/local/bin/s
 
 # Script: 云崽机器人一键安装脚本 （支持Ubuntu系统）
 # Author: Benson Sun
-# Version: 1.0.8
-# Date: 2024-1-29
+# Version: 1.0.9
+# Date: 2024-1-31
 
 SWAPFILE="/swapfile"
 SWAPSIZE="2G"
@@ -53,7 +53,12 @@ function delete_swap() {
 
 while true; do
     clear
+    echo " __   ___       __   __           __            "
+	echo "|__) |__  |\ | /__\` /  \\ |\ |    /__\` |  | |\ | "
+	echo "|__) |___ | \| .__/ \\__/ | \|    .__/ \\__/ | \| "
+	echo
     echo "云崽机器人一键安装脚本 （支持Ubuntu系统）"
+	echo -e "-输入s可快速启动此脚本-"
     echo "-------------------------------------------"
     echo "1. 安装云崽v3.0"
     echo "2. 卸载云崽"
@@ -76,9 +81,11 @@ while true; do
     echo "19. 修改时区"
     echo "20. 安装Ubuntu桌面"
 	echo "21. VNC 功能菜单"
-    echo "22. 安装cpolar内网穿透"
-    echo "23. 安装并启动v2rayA"
-    echo "24. 查看系统信息"
+	echo "22. 安装Google Chrome浏览器"
+    echo "23. 安装cpolar内网穿透"
+    echo "24. 安装并启动v2rayA"
+    echo "25. 查看系统信息"
+	echo "26. 一键重装系统"
     echo "-------------------------------------------"
     echo "0. 退出脚本"
     echo "-------------------------------------------"
@@ -898,6 +905,8 @@ while true; do
                 echo "-------------------------"
                 echo "1. 安装VNC"
                 echo "2. 查看VNC端口号"
+				echo "3. 停止所有VNC服务"
+				echo "4. 解决VNC连接后灰屏"
                 echo "-------------------------"
                 echo "0. 返回上级菜单"
                 echo "-------------------------"
@@ -924,6 +933,35 @@ while true; do
                         sudo ss -tunlp | grep 590
                         read -p "按 Enter 键继续..."
                         ;;
+					 3)
+                        echo "执行停止所有VNC服务的命令"
+                        sudo killall Xtightvnc
+                        read -p "按 Enter 键继续..."
+                        ;;
+					 4)
+                        echo "执行解决VNC连接后灰屏的命令"
+                        # 安装gnome-panel
+						sudo apt-get install -y gnome-panel
+						
+						# 备份原有的xstartup文件
+                        sudo cp /root/.vnc/xstartup /root/.vnc/xstartup.bak
+
+                        # 要替换的代码
+                        new_code="#!/bin/sh\n\nunset SESSION_MANAGER\nunset DBUS_SESSION_BUS_ADDRESS\nexport XKL_XMODMAP_DISABLE=1\nexport XDG_CURRENT_DESKTOP=\"GNOME-Flashback:GNOME\"\nexport XDG_MENU_PREFIX=\"gnome-flashback-\"\n[ -x /root/.vnc/xstartup ] && exec /root/.vnc/xstartup\n[ -r \$HOME/.Xresources ] && xrdb \$HOME/.Xresources\nxsetroot -solid grey\nvncconfig -iconic &\n#gnome-terminal &\n#nautilus &\ngnome-session --session=gnome-flashback-metacity --disable-acceleration-check &"
+
+                        # 将新代码写入xstartup文件中
+                        echo -e "$new_code" | sudo tee /root/.vnc/xstartup > /dev/null
+
+                        echo "xstartup文件已更新，并备份为xstartup.bak"
+						
+						# 重启VNC服务
+                        echo "重启VNC服务"
+                        vncserver -kill :1
+                        vncserver :1 -geometry 1920x1000 -depth 24
+
+                        echo "VNC服务已重启"
+                        read -p "按 Enter 键继续..."
+                        ;;
                      0)
                         break
                         ;;
@@ -934,12 +972,26 @@ while true; do
 
             done
             ;;
-        22)
+		22)
+            echo "执行安装Google Chrome浏览器的命令"
+            # 下载 Google Chrome 安装包
+            echo "正在下载 Google Chrome 安装包..."
+            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+            # 安装 Google Chrome
+            echo "正在安装 Google Chrome..."
+            sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+            # 完成
+            echo "Google Chrome 安装完成"
+            read -p "按 Enter 键继续..."
+            ;;
+        23)
             echo "执行安装cpolar内网穿透的命令"
             bash -c "$(curl -fsSL https://github.com/Benson80/InstallYunzaiBot/raw/main/install_cpolar.sh)"
             read -p "按 Enter 键继续..."
             ;;
-        23)
+        24)
             echo "执行安装并启动v2rayA的命令"
             #添加公钥
             wget -qO - https://apt.v2raya.org/key/public-key.asc | sudo tee /etc/apt/keyrings/v2raya.asc
@@ -959,7 +1011,7 @@ while true; do
             
             read -p "按 Enter 键继续..."
             ;;
-        24)
+        25)
             echo "执行查看系统信息的命令"
             #显示操作系统的图标、主机名、内核版本、CPU 信息、内存使用、分辨率、桌面环境等信息。
             # 检查 neofetch 是否已安装
@@ -976,6 +1028,109 @@ while true; do
             neofetch
             read -p "按 Enter 键继续..."
             ;;
+		26)
+            echo "执行一键重装系统的命令"
+            dd_xitong_1() {
+            read -p "请输入你重装后的密码: " vpspasswd
+            install wget
+            bash <(wget --no-check-certificate -qO- 'https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh') $xitong -v 64 -p $vpspasswd -port 22
+          }
+
+          dd_xitong_2() {
+            install wget
+            wget --no-check-certificate -qO InstallNET.sh 'https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh' && chmod a+x InstallNET.sh
+          }
+
+          clear
+          echo "请备份数据，将为你重装系统，预计花费15分钟。"
+          echo -e "\e[37m感谢MollyLau和MoeClub的脚本支持！\e[0m "
+          read -p "确定继续吗？(Y/N): " choice
+
+          case "$choice" in
+            [Yy])
+              while true; do
+
+                echo "1. Debian 12"
+                echo "2. Debian 11"
+                echo "3. Debian 10"
+                echo "4. Ubuntu 22.04"
+                echo "5. Ubuntu 20.04"
+                echo "6. CentOS 7.9"
+                echo "7. Alpine 3.19"
+                echo -e "8. Windows 11 \033[36mBeta\033[0m"
+                echo "------------------------"
+                read -p "请选择要重装的系统: " sys_choice
+
+                case "$sys_choice" in
+                  1)
+                    xitong="-d 12"
+                    dd_xitong_1
+                    exit
+                    reboot
+                    ;;
+
+                  2)
+                    xitong="-d 11"
+                    dd_xitong_1
+                    reboot
+                    exit
+                    ;;
+
+                  3)
+                    xitong="-d 10"
+                    dd_xitong_1
+                    reboot
+                    exit
+                    ;;
+
+                  4)
+                    dd_xitong_2
+                    bash InstallNET.sh -ubuntu
+                    reboot
+                    exit
+                    ;;
+
+                  5)
+                    xitong="-u 20.04"
+                    dd_xitong_1
+                    reboot
+                    exit
+                    ;;
+
+                  6)
+                    dd_xitong_2
+                    bash InstallNET.sh -centos 7
+                    reboot
+                    exit
+                    ;;
+                  7)
+                    dd_xitong_2
+                    bash InstallNET.sh -alpine
+                    reboot
+                    exit
+                    ;;
+
+                  8)
+                    dd_xitong_2
+                    bash InstallNET.sh -windows
+                    reboot
+                    exit
+                    ;;
+
+                  *)
+                    echo "无效的选择，请重新输入。"
+                    ;;
+                esac
+              done
+              ;;
+            [Nn])
+              echo "已取消"
+              ;;
+            *)
+              echo "无效的选择，请输入 Y 或 N。"
+              ;;
+          esac
+              ;;
         0)
             echo "退出脚本，再见！"
             exit 0
