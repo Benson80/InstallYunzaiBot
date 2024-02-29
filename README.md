@@ -48,6 +48,11 @@ Version: 1.0.8 2024-1-29
 Version: 1.0.9 2024-1-31
 
 增加一键重装系统
+
+Version: 1.1.0 2024-2-29
+
+增加安装B站客户端
+
 ## Termux安装并启动云崽机器人
 ### 保持设备唤醒状态
 termux-wake-lock
@@ -98,7 +103,7 @@ bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/uninstall_
 
 后台运行用screen
 
-#screen新建v2窗口，注意一下config,json路径。
+#screen新建v2窗口，注意一下config.json路径。
 
 screen -S v2
 
