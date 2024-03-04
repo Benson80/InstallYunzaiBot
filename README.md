@@ -101,6 +101,8 @@ bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/uninstall_
 
 修改config.json配置文件，可以参考官方文档，或者参考配置模板https://github.com/v2fly/v2ray-examples ，或者从其他客户端导出一份配置文档。
 
+![image](https://github.com/Benson80/InstallYunzaiBot/assets/81787444/8ed99010-73ea-44f1-a520-390a3d05d8e7)
+
 后台运行用screen
 
 #screen新建v2窗口，注意一下config.json路径。
