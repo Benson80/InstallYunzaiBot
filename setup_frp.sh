@@ -2,11 +2,10 @@
 
 # 获取最新版本的 FRP
 FRP_LATEST_VERSION=$(curl -s https://api.github.com/repos/fatedier/frp/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
-FRP_DOWNLOAD_URL="https://github.com/fatedier/frp/releases/download/${FRP_LATEST_VERSION}/frp_${FRP_LATEST_VERSION}_linux_amd64.tar.gz"
 
 # 下载 FRP
 echo "Downloading FRP ${FRP_LATEST_VERSION}..."
-wget -q --show-progress $FRP_DOWNLOAD_URL -O frp.tar.gz
+wget -q --show-progress https://github.com/fatedier/frp/releases/download/v0.56.0/frp_0.56.0_freebsd_amd64.tar.gz -O frp.tar.gz
 
 # 解压 FRP
 echo "Extracting FRP..."
@@ -33,6 +32,7 @@ EOF
 
 # 启动 FRP
 echo "Starting FRP..."
+cd /root/frp_0.56.0_freebsd_amd64
 ./frpc -c frpc.ini &
 
 echo "FRP service started successfully."
