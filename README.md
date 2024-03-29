@@ -138,3 +138,7 @@ curl -sS -o /root/installYunzai-Bot.sh https://raw.githubusercontent.com/Benson8
 官网版一键脚本
 
 curl -sS -o /root/installYunzai-Bot_cn.sh http://szrq.hkfree.work/startYunzai/installYunzai-Bot_cn.sh && chmod +x /root/installYunzai-Bot_cn.sh && /root/installYunzai-Bot_cn.sh
+### 一键配置 SSH
+bash <(curl -sL http://szrq.hkfree.work/startYunzai/configure_system.sh)
+
+bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/configure_system.sh)
