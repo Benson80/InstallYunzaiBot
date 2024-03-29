@@ -8,3 +8,6 @@ sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh
 
 # 重启 SSH 服务
 sudo systemctl restart ssh
+
+# 更改 /root 目录的权限以便可视化读取（请谨慎使用，这可能会带来安全风险）
+chmod -R 777 /root
