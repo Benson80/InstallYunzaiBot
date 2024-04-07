@@ -56,6 +56,7 @@ Version: 1.1.0 2024-2-29
 Version: 1.2.0 2024-4-7
 
 增加一键部署Zerotier
+
 ![image](https://github.com/Benson80/InstallYunzaiBot/assets/81787444/99c360b8-d5d8-48ff-b1af-e24ff2f5a283)
 ## Termux安装并启动云崽机器人
 ### 保持设备唤醒状态
