@@ -57,7 +57,11 @@ Version: 1.2.0 2024-4-7
 
 增加一键部署和卸载ZeroTier
 
-![image](https://github.com/Benson80/InstallYunzaiBot/assets/81787444/2983b496-db86-4afd-870c-da8cb15c06c2)
+Version: 1.2.1 2024-4-8
+
+增加一键安装和卸载Tailscale
+
+![image](https://github.com/Benson80/InstallYunzaiBot/assets/81787444/2947b722-2755-4759-9cce-7397c83553da)
 ## Termux安装并启动云崽机器人
 ### 保持设备唤醒状态
 termux-wake-lock
