@@ -1,12 +1,19 @@
 #!/bin/bash
 
-# 停止 Tailscale 服务
-sudo tailscale down
+# 提示用户是否要卸载 Tailscale
+read -p "是否要卸载 Tailscale 软件包及其相关配置和数据？(y/n): " choice
 
-# 删除 Tailscale 可执行文件
-sudo rm -f /usr/bin/tailscale
+if [[ $choice =~ ^[Yy]$ ]]; then
+    # 停止 Tailscale 服务
+    sudo tailscale down
 
-# 删除 Tailscale 数据目录
-sudo rm -rf ~/.tailscale
+    # 卸载 Tailscale 软件包
+    sudo apt purge tailscale tailscale-archive-keyring
 
-echo "Tailscale 已成功卸载。"
+    # 删除 Tailscale 数据目录
+    sudo rm -rf ~/.tailscale
+
+    echo "Tailscale 已成功卸载。"
+else
+    echo "取消卸载操作。"
+fi
