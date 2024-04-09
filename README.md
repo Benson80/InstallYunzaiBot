@@ -61,7 +61,11 @@ Version: 1.2.1 2024-4-8
 
 增加一键安装和卸载Tailscale
 
-![image](https://github.com/Benson80/InstallYunzaiBot/assets/81787444/2947b722-2755-4759-9cce-7397c83553da)
+Version: 1.2.2 2024-4-9
+
+增加下载YouTube视频和设置共享文件夹
+
+![image](https://github.com/Benson80/InstallYunzaiBot/assets/81787444/a3987446-3029-4730-9d03-3149c0bfdc88)
 ## Termux安装并启动云崽机器人
 ### 保持设备唤醒状态
 termux-wake-lock
