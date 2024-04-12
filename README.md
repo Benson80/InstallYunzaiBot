@@ -73,6 +73,10 @@ Version: 1.2.4 2024-4-11
 
 增加Ubuntu声音转发
 
+Version: 1.2.5 2024-4-12
+
+增加Termux与Ubuntu文件传输
+
 ![image](https://github.com/Benson80/InstallYunzaiBot/assets/81787444/4b17a8ee-3496-426c-b734-99bf817a0c54)
 ## Termux安装并启动云崽机器人
 ### 保持设备唤醒状态
