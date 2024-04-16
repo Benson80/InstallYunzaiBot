@@ -77,7 +77,11 @@ Version: 1.2.5 2024-4-12
 
 增加Termux与Ubuntu文件传输
 
-![image](https://github.com/Benson80/InstallYunzaiBot/assets/81787444/4b17a8ee-3496-426c-b734-99bf817a0c54)
+Version: 1.2.6 2024-4-16
+
+增加管理Alist网盘
+
+![image](https://github.com/Benson80/InstallYunzaiBot/assets/81787444/4c7209c4-39cf-4120-8bd9-829bb51f7910)
 ## Termux安装并启动云崽机器人
 ### 保持设备唤醒状态
 termux-wake-lock
