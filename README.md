@@ -119,6 +119,10 @@ bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/init_scrip
 bash <(curl -sL http://szrq.hkfree.work/startYunzai/backup_termux.sh)
 
 bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/backup_termux.sh)
+### 一键安装frp
+bash <(curl -sL http://szrq.hkfree.work/startYunzai/setup_frp.sh)
+
+bash <(curl -sL https://github.com/Benson80/InstallYunzaiBot/raw/main/setup_frp.sh)
 ### 一键安装v2ray
 bash <(curl -sL http://szrq.hkfree.work/startYunzai/install_v2ray_cn.sh)
 
