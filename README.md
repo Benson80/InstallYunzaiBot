@@ -87,8 +87,6 @@ Version: 1.2.6 2024-4-16
 termux-wake-lock
 ### 更换镜像源为清华源
 termux-change-repo
-### 更新软件包
-pkg update
 ### 安装wget
 pkg install wget
 ### 初始化Termux
