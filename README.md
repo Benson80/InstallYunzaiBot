@@ -164,11 +164,11 @@ termux-wake-unlock
 
 apt-get update && apt-get install curl -y
 
-curl -sS -o /root/installYunzai-Bot.sh https://raw.githubusercontent.com/Benson80/InstallYunzaiBot/main/installYunzai-Bot.sh && chmod +x /root/installYunzai-Bot.sh && /root/installYunzai-Bot.sh
+bash <(curl -sL https://raw.githubusercontent.com/Benson80/InstallYunzaiBot/main/installYunzai-Bot.sh)
 
 官网版一键脚本
 
-curl -sS -o /root/installYunzai-Bot_cn.sh http://szrq.hkfree.work/startYunzai/installYunzai-Bot_cn.sh && chmod +x /root/installYunzai-Bot_cn.sh && /root/installYunzai-Bot_cn.sh
+bash <(curl -sL http://szrq.hkfree.work/startYunzai/installYunzai-Bot_cn.sh)
 ### 一键配置 SSH
 bash <(curl -sL http://szrq.hkfree.work/startYunzai/configure_system.sh)
 
