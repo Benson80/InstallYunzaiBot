@@ -1,5 +1,13 @@
 #!/bin/bash
-ln -sf ~/installYunzai-Bot.sh /usr/local/bin/s
+
+# 下载脚本到 /root 目录
+curl -sL "https://raw.githubusercontent.com/Benson80/InstallYunzaiBot/main/installYunzai-Bot.sh" -o /root/installYunzai-Bot.sh
+
+# 使用 cp 命令将脚本复制到 /usr/local/bin/s
+cp /root/installYunzai-Bot.sh /usr/local/bin/s
+
+# 设置复制后的脚本为可执行
+chmod +x /usr/local/bin/s
 
 # Script: 云崽机器人一键安装脚本 （支持Ubuntu系统）
 # Author: Benson Sun
