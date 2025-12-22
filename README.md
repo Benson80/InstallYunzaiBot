@@ -85,7 +85,7 @@ Version: 1.3.0 2025-12-22
 
 增加下载多平台视频和播放视频
 
-https://github.com/Benson80/InstallYunzaiBot/blob/main/yunzai_menu.png
+![image](https://github.com/Benson80/InstallYunzaiBot/blob/main/yunzai_menu.png)
 ## Termux安装并启动云崽机器人
 ### 保持设备唤醒状态
 termux-wake-lock
